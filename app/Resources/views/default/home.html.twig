@@ -3,5 +3,10 @@
 {% block body %}
     {{ dump(user) }}
 
-    <a href="{{ path('app_logout') }}">Logout</a>
+    <div>
+        <a href="{{ path('app_settings') }}">Settings</a>
+    </div>
+    <div>
+        <a href="{{ path('app_logout') }}">Logout</a>
+    </div>
 {% endblock %}

@@ -8,4 +8,9 @@ services:
         class: HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUserProvider
     app_auth.hwi_oauth_user_provider:
         class: AppBundle\Auth\OAuthProvider
-        arguments: [@doctrine.orm.entity_manager, @service_container]
+        arguments: ['@doctrine.orm.entity_manager', '@service_container']
+    app_listener.login_listener:
+        class: AppBundle\Event\Listener\LoginListener
+        arguments: ['@doctrine.orm.entity_manager', '@service_container']
+        tags:
+            - { name: 'kernel.event_listener', event: 'security.interactive_login' }
