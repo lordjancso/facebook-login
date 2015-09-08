@@ -12,6 +12,14 @@ facebook_connect:
 facebook_login:
     path: /login_facebook
 
+app_settings:
+    path: /settings
+    defaults: { _controller: AppBundle:Default:edit }
+
+app_home:
+    path: /home
+    defaults: { _controller: AppBundle:Default:home }
+
 app_logout:
     path: /logout
 

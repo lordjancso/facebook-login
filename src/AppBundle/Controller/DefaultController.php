@@ -3,8 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
+use AppBundle\Form\SettingsType;
 use AppBundle\Form\UserType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -32,6 +32,33 @@ class DefaultController extends Controller
 
         return $this->render('default/index.html.twig', array(
             'form' => $form->createView()
+        ));
+    }
+
+    public function editAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager('default');
+
+        $user = $this->getUser();
+        $form = $this->createForm(new SettingsType(), $user);
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('default/edit.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    public function homeAction()
+    {
+        return $this->render('default/home.html.twig', array(
+            'user' => $this->getUser()
         ));
     }
 }
