@@ -17,7 +17,6 @@ class UserController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('app_index');

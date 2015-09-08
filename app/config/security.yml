@@ -28,6 +28,7 @@ security:
                     facebook: /login_facebook
                 login_path: /home
                 default_target_path: /settings
+                always_use_default_target_path: true
                 failure_path: /home
                 oauth_user_provider:
                     service: app_auth.hwi_oauth_user_provider
