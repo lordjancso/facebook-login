@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Traits\TimestampableEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User
 {
+    use TimestampableEntity;
+
     /**
      * @var integer
      *
@@ -55,20 +58,6 @@ class User
      * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
      */
     private $facebook;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="create_datetime", type="datetime")
-     */
-    private $createDatetime;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="update_datetime", type="datetime")
-     */
-    private $updateDatetime;
 
     /**
      * @var \DateTime
@@ -207,52 +196,6 @@ class User
     public function getFacebook()
     {
         return $this->facebook;
-    }
-
-    /**
-     * Set createDatetime
-     *
-     * @param \DateTime $createDatetime
-     * @return User
-     */
-    public function setCreateDatetime($createDatetime)
-    {
-        $this->createDatetime = $createDatetime;
-
-        return $this;
-    }
-
-    /**
-     * Get createDatetime
-     *
-     * @return \DateTime
-     */
-    public function getCreateDatetime()
-    {
-        return $this->createDatetime;
-    }
-
-    /**
-     * Set updateDatetime
-     *
-     * @param \DateTime $updateDatetime
-     * @return User
-     */
-    public function setUpdateDatetime($updateDatetime)
-    {
-        $this->updateDatetime = $updateDatetime;
-
-        return $this;
-    }
-
-    /**
-     * Get updateDatetime
-     *
-     * @return \DateTime
-     */
-    public function getUpdateDatetime()
-    {
-        return $this->updateDatetime;
     }
 
     /**
