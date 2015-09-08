@@ -20,6 +20,8 @@ class User implements UserInterface
 {
     use TimestampableEntity;
 
+    const ROLE_USER = 'ROLE_USER';
+
     /**
      * @var integer
      *
@@ -255,7 +257,7 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return array(self::ROLE_USER);
     }
 
     /**
