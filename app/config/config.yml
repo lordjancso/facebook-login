@@ -78,3 +78,12 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+hwi_oauth:
+    firewall_name:         secured_area
+    resource_owners:
+        facebook:
+            type:          facebook
+            client_id:     132665000414149
+            client_secret: 260e8b49ae5efa159d969d2e575002d6
+            scope:         "email"
