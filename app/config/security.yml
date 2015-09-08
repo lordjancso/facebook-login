@@ -18,22 +18,22 @@ security:
             security: false
 
         secured_area:
-            pattern:    ^/
+            pattern: ^/
             form_login:
                 provider: db_provider
+                default_target_path: /home
                 csrf_provider: security.csrf.token_manager
             oauth:
                 resource_owners:
-                    facebook:      /login_facebook
-                login_path:        /
+                    facebook: /login_facebook
+                login_path: /
                 default_target_path: /settings
-                failure_path:      /
+                failure_path: /
                 oauth_user_provider:
                     service: app_auth.hwi_oauth_user_provider
             logout:
                 path: /logout
                 target: /
-            # Turn on anonymous for testings need.
             anonymous: ~
 
     access_control:

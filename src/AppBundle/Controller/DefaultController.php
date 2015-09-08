@@ -12,6 +12,10 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
+        $authenticationUtils = $this->get('security.authentication_utils');
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+
         $em = $this->getDoctrine()->getManager('default');
 
         $user = new User();
@@ -31,7 +35,9 @@ class DefaultController extends Controller
         }
 
         return $this->render('default/index.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'last_username' => $lastUsername,
+            'error' => $error
         ));
     }
 
