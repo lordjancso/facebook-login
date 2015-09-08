@@ -1,11 +1,15 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
+    encoders:
+        AppBundle\Entity\User: bcrypt
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
+        db_provider:
+            entity: {class: AppBundle:User, property: email}
+        hwi_provider:
+            id: app_auth.hwi_oauth_user_provider
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -15,13 +19,24 @@ security:
 
         secured_area:
             pattern:    ^/
+            form_login:
+                provider: db_provider
+                csrf_provider: security.csrf.token_manager
             oauth:
                 resource_owners:
                     facebook:      /login_facebook
                 login_path:        /
+                default_target_path: /settings
                 failure_path:      /
                 oauth_user_provider:
-                    service: hwi_oauth.user.provider.entity
-
+                    service: app_auth.hwi_oauth_user_provider
+            logout:
+                path: /logout
+                target: /
             # Turn on anonymous for testings need.
             anonymous: ~
+
+    access_control:
+        - { path: ^/connect/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }

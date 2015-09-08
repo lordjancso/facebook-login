@@ -70,10 +70,6 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
-        filters:
-            softdeleteable:
-                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
-                enabled: true
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -91,6 +87,9 @@ hwi_oauth:
             client_id:     132665000414149
             client_secret: 260e8b49ae5efa159d969d2e575002d6
             scope:         "email"
+            infos_url:     "https://graph.facebook.com/me?fields=id,name,email"
+            paths:
+                email:     email
 
 stof_doctrine_extensions:
     orm:

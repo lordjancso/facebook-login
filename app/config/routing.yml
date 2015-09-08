@@ -12,6 +12,9 @@ facebook_connect:
 facebook_login:
     path: /login_facebook
 
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+app_logout:
+    path: /logout
+
+app_index:
+    path: /
+    defaults: { _controller: AppBundle:Default:index }

@@ -4,14 +4,19 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\TimestampableEntity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
+ * @UniqueEntity("email")
+ * @UniqueEntity("facebook")
  */
-class User
+class User implements UserInterface
 {
     use TimestampableEntity;
 
@@ -27,7 +32,8 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\Email()
+     * @ORM\Column(name="email", type="string", unique=true, length=255)
      */
     private $email;
 
@@ -55,7 +61,7 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
+     * @ORM\Column(name="facebook", type="string", length=255, unique=true, nullable=true)
      */
     private $facebook;
 
@@ -242,5 +248,37 @@ class User
     public function getLastLoginClientIp()
     {
         return $this->lastLoginClientIp;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function eraseCredentials()
+    {
+        //
     }
 }
